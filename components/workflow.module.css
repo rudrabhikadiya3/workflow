@@ -1,0 +1,4 @@
+.workflowContainer {
+  height: calc(100vh - 110px);
+  width: calc(100vw - 280px);
+}

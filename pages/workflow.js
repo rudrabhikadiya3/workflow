@@ -2,6 +2,13 @@ import classNames from 'classnames'
 import React, { useState } from 'react'
 import { VscFile } from 'react-icons/vsc'
 
+import dynamic from 'next/dynamic'
+
+const WorkFlow = dynamic(() => import('../components/WorkFlow'), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,
+})
+
 const Workflow = () => {
   const localCsvs = [
     {
@@ -60,7 +67,6 @@ const Workflow = () => {
                 <li>
                   <a href='#' className='flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group'>
                     <VscFile />
-
                     <span className='ms-3'>{csv.name}</span>
                   </a>
                 </li>
@@ -70,7 +76,7 @@ const Workflow = () => {
         </aside>
         <div className='p-4 sm:ml-64'>
           <div className='p-2 mt-14'>
-            <h1 className='text-red-700'>Hello</h1>
+            <WorkFlow />
           </div>
         </div>
       </div>

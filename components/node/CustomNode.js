@@ -1,42 +1,39 @@
-import { useCallback } from 'react'
 import { Handle, Position } from 'reactflow'
 import { useDropzone } from 'react-dropzone'
-import './CustomNode.module.css'
-const handleStyle = { left: 10 }
+import styles from './CustomNode.module.css'
+import { RxDragHandleDots2 } from 'react-icons/rx'
+import { toast } from 'sonner'
 
-export default function CustomNode({ data }) {
-  const onChange = useCallback((evt) => {
-    console.log(evt.target.value)
-  }, [])
-
+export default function CustomNode() {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    accept: 'text/csv',
-    onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles)
+    multiple: false,
+    accept: { 'text/csv': ['.csv'] },
+    onDrop: (acceptedFile) => {
+      console.log('✅ acceptedFile', acceptedFile)
     },
   })
 
   const filesList = acceptedFiles.map((file) => <li key={file.name}>{file.name}</li>)
-
   return (
     <>
       <Handle type='target' position={Position.Bottom} />
-      <div className='node'>
+      <div className={styles.node}>
+        <RxDragHandleDots2 />
         {filesList.length === 0 ? (
-          <div {...getRootProps()} style={{ border: '1px solid #ccc', padding: '10px' }}>
-            <div {...getInputProps()} style={{ cursor: 'pointer' }}>
-              {filesList.length === 0 && ' Click or drag and drop files here'}
+          <section className={styles.dropArea}>
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <p>Drag and drop and click here</p>
             </div>
-            {filesList.length > 0 && <ul>{filesList}</ul>}
-          </div>
+          </section>
         ) : (
-          <div style={{ border: '1px solid #ccc', padding: '10px' }}>
-            <ul>{filesList}</ul>
+          <div className={styles.node}>
+            <div className={styles.dropArea}>
+              <ul>{filesList}</ul>
+            </div>
           </div>
         )}
       </div>
-      {/* <Handle type='source' position={Position.Bottom} id='a' /> */}
-      {/* <Handle type='source' position={Position.Bottom} id='b' style={handleStyle} /> */}
     </>
   )
 }

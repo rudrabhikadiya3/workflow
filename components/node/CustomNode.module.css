@@ -1,0 +1,13 @@
+.node {
+  display: flex;
+  align-items: center;
+  background-color: bisque;
+  border-radius: 10px;
+}
+.dropArea {
+  border: 2px dashed #8d4b0050;
+  padding: 10px 20px;
+  margin: 10px;
+  color: #8d4b0050;
+  border-radius: 10px;
+}
